@@ -20,10 +20,10 @@ def get_and_reformat_dataset():
     res = requests.get("https://datacommons.org/data/factcheck/fact_checks_20190605.txt.gz")
     dataset = res.text
 
-    for line in dataset.split('\n'):
+    for line in dataset.split("\n"):
         reformatted_line = re.sub(r"\<(.*?)\>", "", line)
         with open(DATASET_FILENAME, "a") as reformatted_f:
-            reformatted_f.write(reformatted_line)
+            reformatted_f.write(reformatted_line + "\n")
 
 
 def scrape_article(line, tries=0):
