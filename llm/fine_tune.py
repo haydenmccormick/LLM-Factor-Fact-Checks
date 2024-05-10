@@ -4,6 +4,7 @@ import openai
 import os
 import dotenv
 from tqdm import tqdm
+import argparse
 
 dotenv.load_dotenv()
 
@@ -100,12 +101,18 @@ def get_predictions(model, model_name):
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Fine-tune 'local' LLM.")
+    parser.add_argument("--model", type=str, required=True, help="Model string")
+    args = parser.parse_args()
+
+
     client = openai.OpenAI(
         base_url = "https://api.endpoints.anyscale.com/v1",
         api_key = os.environ.get("ANYSCALE_API_KEY")
     )
 
-    model = "mistralai/Mixtral-8x7b"
+    # model = "mistralai/Mixtral-8x7b"
+    model = args.model
 
     format_data()
     fine_tune(client, model)

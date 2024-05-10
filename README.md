@@ -34,10 +34,10 @@ This will produce `data/matched_articles.jsonl`, which is ready for processing!
 
 First, change to the `llm` directory. Here, there are a few methods that you can use for processing the data:
 
-- `python factor.py`: Run a cloud LLM (GPT3.5) on a subset of the dataset, and produce a new file with predictions. This produces `data/predicted_factors.jsonl`. **NOTE**: you must have an OpenAI API key saved as the environment variable `OPENAI_API_KEY` for this to work! (see .env)
+- `python factor.py --model <model>`: Run a cloud LLM (e.g. --model gpt-3.5-turbo) on a subset of the dataset, and produce a new file with predictions. This produces `data/predicted_factors.jsonl`. **NOTE**: you must have an OpenAI API key saved as the environment variable `OPENAI_API_KEY` for this to work if using GPT! Otherwise if using Claude, save your API key under `ANTHROPIC_API_KEY`.
 
-- `python fine_tune.py`: Fine-tune Mistral-8B on the dataset. **NOTE**: you must have an AnyScale API key saved as the environment variable `ANYSCALE_API_KEY` for this to work!
+- `python fine_tune.py --model <model>`: Fine-tune an Anyscale model (e.g. --model mistralai/Mixtral-8x7b) on the dataset. **NOTE**: you must have an AnyScale API key saved as the environment variable `ANYSCALE_API_KEY` for this to work!
 
 - `python tune_dspy.py`: Use [DSPy](https://dspy-docs.vercel.app/) to "fine-tune" a CoT few-shot prompt on the datase, and run evalutaion. Like `factor.py`, you must have an OpenAI API key saved.
 
-- `python eval.py <your_file.jsonl>`: This will run the evalutation script on your prediction file and return ROUGE-1 scores.
+- `python eval.py --dataset <your_file.jsonl>`: This will run the evalutation script on your prediction file and return ROUGE-1 scores.

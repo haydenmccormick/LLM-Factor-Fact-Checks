@@ -2,6 +2,7 @@ import anthropic
 from openai import OpenAI
 import openai
 
+import argparse
 from dotenv import load_dotenv
 import json
 import os
@@ -95,7 +96,20 @@ def factor_fact_checks(model, client):
                     print(f"Error: {e}")
                     time.sleep(60)
 
+                except anthropic.RateLimitError as e:
+                    print(f"Error: {e}")
+                    time.sleep(60)
+                    
+
 if __name__ == "__main__":
-    client = OpenAI()
-    factor_fact_checks("gpt-3.5-turbo", client)
+    parser = argparse.ArgumentParser(description="Factor fact checks using a given LLM.")
+    parser.add_argument("--model", type=str, required=True, help="Model string")
+    args = parser.parse_args()
+
+    if "gpt" in args.model:
+        client = OpenAI()
+    else:
+        client = anthropic.Anthropic()
+
+    factor_fact_checks(args.model, client)
     print("Predictions saved to", PREDICTED_DATASET)
