@@ -30,6 +30,8 @@ python fuzzy_match_factors.py
 
 This will produce `data/matched_articles.jsonl`, which is ready for processing!
 
+WARNING: This may take a long time.
+
 ## NLP
 
 First, change to the `llm` directory. Here, there are a few methods that you can use for processing the data:

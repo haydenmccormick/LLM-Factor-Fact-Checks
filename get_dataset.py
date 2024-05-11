@@ -17,6 +17,9 @@ DATASET_WITH_ARTICLES = "data/dataset_with_articles.jsonl"
 
 def get_and_reformat_dataset():
     # Download public dataset
+
+    if os.path.exists(DATASET_FILENAME):
+        os.remove(DATASET_FILENAME)
     res = requests.get("https://datacommons.org/data/factcheck/fact_checks_20190605.txt.gz")
     dataset = res.text
 
